@@ -525,6 +525,7 @@ def ClassifierFreeGuidancePlugin(
 
         def forward(
             x: Tensor,
+            *args,
             embedding: Optional[Tensor] = None,
             embedding_scale: float = 1.0,
             embedding_mask_proba: float = 0.0,
@@ -549,6 +550,7 @@ def ClassifierFreeGuidancePlugin(
                 # Scale conditional output using classifier-free guidance
                 return out_masked + (out - out_masked) * embedding_scale
             else:
+                # print("classifier args", args)
                 return net(x, embedding=embedding, **kwargs)
 
         return Module([fixed_embedding, net], forward)

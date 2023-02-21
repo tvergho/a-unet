@@ -326,6 +326,7 @@ def FixedEmbedding(max_length: int, features: int):
         position = torch.arange(length, device=device)
         fixed_embedding = embedding(position)
         fixed_embedding = repeat(fixed_embedding, "n d -> b n d", b=batch_size)
+        print("embedding", embedding.size())
         return fixed_embedding
 
     return Module([embedding], forward)
